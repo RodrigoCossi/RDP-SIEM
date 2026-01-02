@@ -1,7 +1,7 @@
 # RDP-SIEM
 
 ## Project overview
-This project sets up Azure Sentinel (Microsoft's cloud-native Security Information and Event Management system) to monitor real-world cyber attacks by creating an exposed honeypot VM (a decoy virtual machine designed to attract attackers). The focus is on ingesting Windows security logs for failed RDP (Remote Desktop Protocol) logins (Event ID 4625 - audit failures indicating bad username/password attempts), enriching them with geographic data via an API, and visualizing attacks on a world map.
+This project sets up Azure Sentinel (Microsoft's cloud-native Security Information and Event Management system) to monitor real-world cyber attacks by creating an exposed honeypot VM (a decoy virtual machine designed to attract attackers). The focus is on ingesting Windows security logs for failed RDP (Remote Desktop Protocol) logins (Event ID 4625 - audit failures indicating bad username/password attempts), enriching them with geographic data and visualizing attacks on a world map.
 
 <!-- ![alt text](images/image-15.png) -->
 ![alt text](images/image-16.png)
