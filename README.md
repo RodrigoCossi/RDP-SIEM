@@ -118,12 +118,12 @@ Going back to Log Analytics Workstapces > Logs > KQL mode:
 **KQL** (**Kusto Query Language**) filters/analyzes log "tables" (spreadsheets).
 ![alt text](images/image-12.png)
 
-- Basics: `SecurityEvent` dumps all; `\| where Account = "admin"` filters; `\| project TimeGenerated, Account, Computer, EventID, IpAddress` selects columns.  
+- Basics: `SecurityEvent` dumps all; `| where Account = "admin"` filters; `| project TimeGenerated, Account, Computer, EventID, IpAddress` selects columns.  
 - Examples:
-  - Failed logons: `SecurityEvent \| where EventID == 4625`.  
-  - Recent: `\| where TimeGenerated > ago(5m)`.  
+  - Failed logons: `SecurityEvent | where EventID == 4625`.  
+  - Recent: `| where TimeGenerated > ago(5m)`.  
   - Project attacker details: Rename `IpAddress` to `AttackerIP`.  
-- **Analogy:** SQL-like for spreadsheets—pipe (`\|`) chains operations.  
+- **Analogy:** SQL-like for spreadsheets—pipe (`|`) chains operations.  
 - **IP geolocation prep:** Logs have IP but no location—needs watchlist.  
 - **Resources:** kc7cyber.com (free).  
 - **Why essential:** Transforms raw logs into insights (e.g., Israeli attacker).  
@@ -143,7 +143,7 @@ SecurityEvent
 - Locate the file geoip-summarized.csv (in this repo), upload in Sentinel > Configuration > Watchlists > Microsoft Defender Portal > New (name/alias `geoip`, search key `network`).
 ![alt text](images/image-13.png)
 - Upload takes time (~55k items); click on `View in logs` to access the Advanced Hunting page and query `_GetWatchlist('geoip')` verifies (columns: Network, Lat/Long, City, Country).
-- **Join query example:** `let GeoIPDB_FULL =_GetWatchlist('geoip'); let WindowsEvents = SecurityEvent \| where EventID == 4625 \| order by TimeGenerated desc \| evaluate ipv4_lookup(GeoIPDB_FULL, IpAddress, network); WindowsEvents \| project TimeGenerated, Computer, AttackerIp = IpAddress, cityname, countryname, latitude, longitude` enriches with geolocation.
+- **Join query example:** `let GeoIPDB_FULL =_GetWatchlist('geoip'); let WindowsEvents = SecurityEvent | where EventID == 4625 | order by TimeGenerated desc | evaluate ipv4_lookup(GeoIPDB_FULL, IpAddress, network); WindowsEvents | project TimeGenerated, Computer, AttackerIp = IpAddress, cityname, countryname, latitude, longitude` enriches with geolocation.
 
 ![alt text](images/image-14.png)
 
